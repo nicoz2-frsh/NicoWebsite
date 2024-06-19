@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+	Simple Text Adventure Game
+</title>
+	<style>
+		#inputBox, #submitButton, #outputDiv {
+			width: 100%;
+			margin: 10px 0;
+		}
+		#outputDiv {
+			height: 100px;
+			background-color: #f0f0f0;
+			overflow: auto;
+		}
+
+	.bottom-right {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 20 px;
+	padding: 10 px;
+	background-color: lightblue;
+	border-radius: 5 px;
+}
+
+	.bottom-right a {
+	text-decoration : none ;
+	color: black ;
+	font-weight: bold ;
+}
+
+	</style>
+</head>
+ 
+<body>
+ 
+	<input type="text" id="inputBox" placeholder="Type your action...">
+	<button id="submitButton">Submit</button>
+	<div id="outputDiv">
+		Hello, welcome to my text adventure. Would you like to enter the cave? <br>
+		<u>Yes</u>, or <u>no</u>?
+	</div>
+ 
+	<script>
+		var stage = 0;
+		var health = 0;
+		var items = [];
+ 
+		document.getElementById('submitButton').onclick = function(){
+			gameloop();
+		}
+
+		function gameloop(){
+
+			var userInput = document.getElementById('inputBox').value.toLowerCase();
+			document.getElementById('inputBox').value = ""
+ 
+			console.log('current stage = ' + stage);
+
+			if(stage == 0){
+				if(userInput == "yes"){
+					// users goes into save
+					console.log('user has entered the cave');
+					stage = 1;
+					document.getElementById('outputDiv').innerHTML = 'You have entered the cave. <br>What would you like to do? Turn <u>left</u>, turn <u>right</u>?';
+				}else{
+					// if user says no/anything else
+					alert("You must go forward");
+				}
+			}
+ 
+			else if(stage == 1){
+ 				//user has entered the cave
+ 				if(userInput == "left"){
+ 					// user goes left
+ 					console.log('user has gone left');
+ 					stage = 2;
+ 					document.getElementById('outputDiv').innerHTML = 'You have encoutered a mythical item: The mythical gold sword <br> What would you like to do? <br> 1: Pick it up and continue <br> 2: leave it and continue?';
+ 				}	
+ 				//user has entered the cave
+ 				if(userInput == "right"){
+ 					// user goes right
+ 					console.log('user has gone right');
+ 					stage = 3;
+ 					document.getElementById('outputDiv').innerHTML = 'You have encountered a mythical bear, the bear has killed you. <br> GAME OVER';
+ 				}
+			}else if(stage == 2){
+				// user picks up item and continue
+				console.log('user picks up item');
+ 				if(userInput == '1'){
+ 					stage = 3;
+ 					document.getElementById('outputDiv').innerHTML = 'You have encoutered a mythical bear, you have defeated it with the mythical gold sword. You have obtained: bear armor <br> 1. Equipe and continue <br> 2. Continue without item';
+ 				}
+ 				// user leaves item and continue
+ 				console.log('user leaves the item and continue');
+ 				if(userInput == '2'){
+ 					stage = 3;
+ 					document.getElementById('outputDiv').innerHTML = "You have encoutered a mythical bear, you don't have a weapon to protect you, the bear has killed you. <br> GAME OVER";
+ 				}
+			}else if(stage == 3){
+				// user defeats the bear and makes it to the final stage
+				console.log('makes it to the final stage');
+ 				if(userInput == '1'){
+ 					stage = 4;
+ 					document.getElementById('outputDiv').innerHTML = 'You have made it to the final stage of the game and completed it <br> CONGRADULATION';
+ 				}
+ 				// user defeats the bear and makes it to the final stage
+ 				if(userInput == '2'){
+ 					stage = 4;
+ 					document.getElementById('outputDiv').innerHTML = 'You have made it to the final stage of the game and completed it <br> CONGRADULATION';
+ 				}
+			}
+ 			console.log('next stage = ' + stage);
+
+			//document.getElementById('outputDiv').innerHTML = 'You typed:' + userInput;
+		};
+
+		document.addEventListener('DOMContentLoaded', function () {
+			document.addEventListener('keydown', function (event) {
+				if (event.key === 'Enter' ) {
+					runWhenEnterIsPressed();
+				}
+			}) ;
+		}) ;
+
+function runWhenEnterIsPressed() {
+gameloop();
+}
+
+	</script>
+
+<div class = " bottom-right ">
+<a href = "aboutme.html.html "> Visit About Page </a>
+</div >
+
+</body>
+</html>
